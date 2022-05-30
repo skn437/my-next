@@ -6,12 +6,20 @@ import styles from "@/pages/create.module.scss";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TextField from '@mui/material/TextField';
 import { useState } from "react";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
 
 const Create: NextPage = () => {
-	const [title, setTitle] = useState("");
-	const [details, setDetails] = useState("");
-	const [titleError, setTitleError] = useState(false);
-	const [detailsError, setDetailsError] = useState(false);
+	const defaultState = {
+		title: "",
+		details: "",
+		titleError: false,
+		detailsError: false,
+		category: "None"
+	};
+
+	const [state, setState] = useState(defaultState);
 
 	return (
 		<Container>
@@ -29,18 +37,29 @@ const Create: NextPage = () => {
 				autoComplete="off"
 				onSubmit={e => {
 					e.preventDefault();
-					setTitleError(false);
-					setDetailsError(false);
+					setState({
+						...state,
+						titleError: false,
+						detailsError: true
+					});
 
-					if (title === "") {
-						setTitleError(true);
+					if (state.title === "") {
+						setState({
+							...state,
+							titleError: true
+						});
 					}
-					if (details === "") {
-						setDetailsError(true);
+					if (state.details === "") {
+						setState({
+							...state,
+							detailsError: true
+						});
 					} 
-					if (title && details) {
-						console.log(`title: ${title} details: ${details}`);
+					if (state.title && state.details) {
+						console.log(`title: ${state.title} details: ${state.details} Radio: ${state.category}`);
 					}
+
+					setState(defaultState);
 				}}
 			>
 				<TextField
@@ -49,8 +68,14 @@ const Create: NextPage = () => {
 					required
 					fullWidth
 					margin="dense"
-					error = {titleError}
-					onChange={e => setTitle(e.target.value)}
+					error = {state.titleError}
+					value={state.title}
+					onChange={e => {
+						setState({
+							...state,
+							title: e.target.value
+						});
+					}}
 				></TextField>
 				
 				<TextField
@@ -61,9 +86,48 @@ const Create: NextPage = () => {
 					margin="dense"
 					multiline
 					minRows={4}
-					error={detailsError}
-					onChange={e => setDetails(e.target.value)}
+					error={state.detailsError}
+					value={state.details}
+					onChange={e => {
+						setState({
+							...state,
+							details: e.target.value
+						});
+					}}
 				></TextField>
+
+				<FormControl id={styles.radio_control}>
+					<FormLabel id={styles.category}>
+						Note Category
+					</FormLabel>
+					<RadioGroup
+						value={state.category}
+						onChange={e => {
+							setState({
+								...state,
+								category: e.target.value
+							});
+						}}
+					>
+						<FormControlLabel
+							control={<Radio></Radio>}
+							label="Geralt"
+							value="Geralt"
+						></FormControlLabel>
+
+						<FormControlLabel
+							control={<Radio></Radio>}
+							label="Triss"
+							value="Triss"
+						></FormControlLabel>
+
+						<FormControlLabel
+							control={<Radio></Radio>}
+							label="None"
+							value="None"
+						></FormControlLabel>					
+					</RadioGroup>
+				</FormControl>
 
 				<Button 
 					type="submit"
