@@ -35,7 +35,7 @@ const Create: NextPage = () => {
 			<form
 				noValidate
 				autoComplete="off"
-				onSubmit={e => {
+				onSubmit={(e) => {
 					e.preventDefault();
 					setState({
 						...state,
@@ -57,9 +57,8 @@ const Create: NextPage = () => {
 					} 
 					if (state.title && state.details) {
 						console.log(`title: ${state.title} details: ${state.details} Radio: ${state.category}`);
+						setState(defaultState);
 					}
-
-					setState(defaultState);
 				}}
 			>
 				<TextField
@@ -70,7 +69,7 @@ const Create: NextPage = () => {
 					margin="dense"
 					error = {state.titleError}
 					value={state.title}
-					onChange={e => {
+					onChange={(e) => {
 						setState({
 							...state,
 							title: e.target.value
@@ -88,7 +87,7 @@ const Create: NextPage = () => {
 					minRows={4}
 					error={state.detailsError}
 					value={state.details}
-					onChange={e => {
+					onChange={(e) => {
 						setState({
 							...state,
 							details: e.target.value
@@ -102,7 +101,7 @@ const Create: NextPage = () => {
 					</FormLabel>
 					<RadioGroup
 						value={state.category}
-						onChange={e => {
+						onChange={(e) => {
 							setState({
 								...state,
 								category: e.target.value

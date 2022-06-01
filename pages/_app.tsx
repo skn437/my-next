@@ -1,6 +1,6 @@
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useRecoilState } from "recoil";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { indigo } from "@mui/material/colors";
 
@@ -15,11 +15,11 @@ const darkTheme = createTheme({
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<ThemeProvider theme={darkTheme}>
 			<RecoilRoot>
-				<Component {...pageProps}></Component>
+				<ThemeProvider theme={darkTheme}>
+					<Component {...pageProps}></Component>
+				</ThemeProvider>
 			</RecoilRoot>
-		</ThemeProvider>
 	);
 }
 
