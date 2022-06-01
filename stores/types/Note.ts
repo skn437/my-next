@@ -1,4 +1,4 @@
-export interface Note {
+export default interface Note {
   title: string;
   details: string;
   category: string;

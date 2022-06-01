@@ -3,32 +3,22 @@ import { useEffect } from "react";
 import  { db }  from "@/firebase/Firebase";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { noteState } from "@/stores/atoms/NoteState";
-import { Note } from "@/stores/types/Note";
+import Note from "@/stores/types/Note";
 
-//const NoteList = () => {
+const NoteList = () => {
   const [notes, setNotes] = useRecoilState(noteState);
-  const noteProto = useRecoilValue(noteState);
-  console.log(noteProto);
 
   const colRef = collection(db, "notes");
   const q = query(colRef, orderBy("createdAt", "desc"));
 
   useEffect(() => {
     onSnapshot(q, (snapshot) => {
-      const notes = snapshot.docs.map((doc) => {
-        noteProto.push({
-          title: doc.data().title,
-          details: doc.data().details,
-          category: doc.data().category,
-          id: doc.id,
-          createdAt: doc.data().createdAt
-        });
-      });
-      setNotes(noteProto);
+      const notes = snapshot.docs.map((doc) => doc.data()) as Note[];
+      setNotes(notes);
     });
   }, [setNotes]);
 
-  export { notes };
-//};
+  return notes;
+};
 
-//export default NoteList; 
+export default NoteList; 

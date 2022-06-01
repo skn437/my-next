@@ -1,4 +1,4 @@
-import { Note } from "@/stores/types/Note";
+import Note  from "@/stores/types/Note";
 type CustomType = {
   notes: Note[]
 }
