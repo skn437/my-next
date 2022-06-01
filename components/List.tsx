@@ -1,4 +1,5 @@
 import Note  from "@/stores/types/Note";
+
 type CustomType = {
   notes: Note[]
 }
@@ -12,6 +13,7 @@ const List = ({ notes }: CustomType) => {
           <p>Detail is: {doc.details}</p>
           <p>Category is: {doc.category}</p>
           <p>Time is: {doc.createdAt}</p>
+          <p>ID is: {doc.id}</p>
         </div>
       )):
         <div>

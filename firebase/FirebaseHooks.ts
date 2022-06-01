@@ -7,16 +7,26 @@ import Note from "@/stores/types/Note";
 
 const NoteList = () => {
   const [notes, setNotes] = useRecoilState(noteState);
+  let noteProto: Note[] = [];
 
   const colRef = collection(db, "notes");
   const q = query(colRef, orderBy("createdAt", "desc"));
 
   useEffect(() => {
     onSnapshot(q, (snapshot) => {
-      const notes = snapshot.docs.map((doc) => doc.data()) as Note[];
-      setNotes(notes);
+      snapshot.docs.forEach((doc) => {
+        noteProto.push({
+          title: doc.data().title,
+          details: doc.data().details,
+          category: doc.data().category,
+          id: doc.id,
+          createdAt: doc.data().createdAt
+        });
+      });
+      setNotes(noteProto);
+      console.log(noteProto);
     });
-  }, [setNotes]);
+  }, []);
 
   return notes;
 };
