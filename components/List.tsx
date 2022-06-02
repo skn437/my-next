@@ -1,10 +1,4 @@
-import Note  from "@/stores/types/Note";
-
-type CustomType = {
-  notes: Note[]
-}
-
-const List = ({ notes }: CustomType) => {
+const List = ({ notes }) => {
   return (
     <div>
       {notes.length ? notes.map(doc => (
@@ -12,7 +6,7 @@ const List = ({ notes }: CustomType) => {
           <p>Title is: {doc.title}</p>
           <p>Detail is: {doc.details}</p>
           <p>Category is: {doc.category}</p>
-          <p>Time is: {doc.createdAt}</p>
+          {/*<p>Time is: {doc.createdAt}</p>*/}
           <p>ID is: {doc.id}</p>
         </div>
       )):

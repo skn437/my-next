@@ -15,11 +15,11 @@ const darkTheme = createTheme({
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
+		<ThemeProvider theme={darkTheme}>
 			<RecoilRoot>
-				<ThemeProvider theme={darkTheme}>
 					<Component {...pageProps}></Component>
-				</ThemeProvider>
 			</RecoilRoot>
+		</ThemeProvider>
 	);
 }
 
