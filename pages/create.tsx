@@ -9,12 +9,7 @@ import { useState } from "react";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
-import { useRecoilValue } from "recoil";
-import { noteState } from "@/stores/atoms/NoteState";
-import useAddNote from "@/firebase/AddNote";
 import { useRouter } from "next/router";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "@/firebase/Firebase";
 
 const Create: NextPage = () => {
 	const defaultState = {
@@ -63,13 +58,7 @@ const Create: NextPage = () => {
 						});
 					} 
 					if (state.title && state.details) {
-						const data = {
-							title: state.title,
-							details: state.details,
-							category: state.category
-						};
-						useAddNote(data);
-						router.push("/lists");
+						console.log(`Title: ${state.title}, Details: ${state.details}`);
 					}
 				}}
 			>
