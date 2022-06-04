@@ -9,7 +9,7 @@ export default async (req, res) => {
     if (entriesData.some(entry => entry.slug === slug)) {
       res.status(400).end();
     } else {
-      const { id } = await db.collection('entries').add({
+      const { id } = await db.collection('notes').add({
         ...req.body,
         created: new Date().toISOString(),
       });
