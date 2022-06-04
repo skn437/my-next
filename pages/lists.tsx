@@ -1,5 +1,7 @@
-import { Alert } from "@mui/material";
+import { Alert, Grid, IconButton, Paper, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import useSWR from "swr";
+import NoteLists from "@/components/NoteLists";
 
 const API = `/api/entries`;
 const options = {
@@ -15,12 +17,12 @@ const fetcher = async (url: string) => {
     throw new Error(`That's an error`);
   }
 
-  interface dataType {
+  /*interface dataType {
     id: string;
     title: string;
     details: string;
     category: string;
-  }
+  }*/
 
   const data = await res.json();
 
@@ -44,14 +46,25 @@ const lists = () => {
   }
 
   return (
-    <div>
+    <Container>
       <h1>Lists</h1>
-      {data.map((doc) => (
-        <div key={doc.id}>
-          <p>Title: {doc.title}</p>
-        </div>
-      ))}
-    </div>
+      <Grid 
+        container
+        spacing={3}
+      >
+        {data.map((note) => (
+          <Grid 
+            key={note.id}
+            item
+            xs={12}
+            md={6}
+            lg={4}
+          >
+            <NoteLists note={note}></NoteLists>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 
