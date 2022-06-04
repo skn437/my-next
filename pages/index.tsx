@@ -9,6 +9,7 @@ const Home: NextPage = () => {
 	const fontSize = useRecoilValue(fontSizeSelector);
 
 	return (
+		<>
 		<div>
 			<h1 style={{ fontSize: fontSize }}>Recoil Tutorial</h1>
 			<h2>The count value is: {count}</h2>
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
 			<button onClick={() => setCount(count + 1)}>Increase Count</button>
 			<button onClick={resetCount}>reset count</button>
 		</div>
+		</>
 	);
 };
 
