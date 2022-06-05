@@ -24,6 +24,11 @@ const menuItems = [
     text: "Note List",
     icon: <SubjectOutlined color="primary"></SubjectOutlined>,
     path: "/lists"
+  },
+  {
+    text: "Note List 2",
+    icon: <SubjectOutlined color="primary"></SubjectOutlined>,
+    path: "/notes"
   }
 ];
 

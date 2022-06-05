@@ -2,6 +2,7 @@ import { Alert, Grid, IconButton, Paper, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import useSWR from "swr";
 import NoteLists from "@/components/NoteLists";
+import { useEffect, useRef } from "react";
 
 const API = `/api/entries`;
 const options = {
@@ -17,19 +18,17 @@ const fetcher = async (url: string) => {
     throw new Error(`That's an error`);
   }
 
-  /*interface dataType {
-    id: string;
-    title: string;
-    details: string;
-    category: string;
-  }*/
-
   const data = await res.json();
 
   return data;
 };
 
 const lists = () => {
+  const renderCount = useRef(0);
+  useEffect(() => {
+    renderCount.current = renderCount.current + 1;
+  });
+
   const { data, error } = useSWR(API, fetcher);
   console.log(`Data: `, data);
 
@@ -48,6 +47,7 @@ const lists = () => {
   return (
     <Container>
       <h1>Lists</h1>
+      <h1>This page rendered {renderCount.current} times</h1>
       <Grid 
         container
         spacing={3}
