@@ -3,24 +3,24 @@ import { Container } from "@mui/system";
 import useSWR from "swr";
 import NoteLists from "@/components/NoteLists";
 import { useEffect, useRef } from "react";
+import axios from "axios";
 
 const API = `/api/entries`;
-const options = {
-  method: "GET",
+const config = {
   headers: {
     "Content-Type": "application/json"
   }
 };
 const fetcher = async (url: string) => {
-  const res = await fetch(url, options);
+  const { data: res } = await axios.get(url, config);
 
-  if (!res.ok) {
+  /*if (!res) {
     throw new Error(`That's an error`);
-  }
+  }*/
 
-  const data = await res.json();
+  //const data = await res.json();
 
-  return data;
+  return res;
 };
 
 const lists = () => {

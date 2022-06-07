@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/stores/types/constant";
 import axios from "axios";
 import { useEffect, useRef } from "react";
 
@@ -8,7 +9,7 @@ export const getStaticProps = async () => {
     }
   };
 
-  const {data: res} = await axios.get(`http://localhost:3000/api/entries`, config);
+  const {data: res} = await axios.get(`${BASE_URL}/api/entries`, config);
 
   return {
     props: {
@@ -26,11 +27,13 @@ const notes = (props) => {
   return (
     <div>
       <h1>This page rendered {renderCount.current} times</h1>
-      {props.notes.map((doc) => (
+      {props.notes.length ? props.notes.map((doc) => (
         <div key={doc.id}>
           <p>{doc.category}</p>
         </div>
-      ))}
+      )) : 
+        <div>Error Occured</div>
+      }
     </div>
   );
 };
