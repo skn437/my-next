@@ -6,13 +6,13 @@ const Entries = async (
   res: NextApiResponse
   ) => {
     try {
-      const entries = await db.collection('notes').orderBy("createdAt", "desc").get();
-      const entriesData = entries.docs.map(entry => ({
+      const snapshot = await db.collection('notes').orderBy("createdAt", "desc").get();
+      const entriesData = snapshot.docs.map(entry => ({
         id: entry.id,
         ...entry.data()
       }));
       res.status(200).json(entriesData);
-    } catch (e) {
+    } catch (err) {
         res.status(400).end();
       }
 };

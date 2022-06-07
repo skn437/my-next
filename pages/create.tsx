@@ -10,6 +10,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const Create: NextPage = () => {
 	const defaultState = {
@@ -22,6 +23,12 @@ const Create: NextPage = () => {
 
 	const [state, setState] = useState(defaultState);
 	const router = useRouter();
+	
+	const config = {
+		headers: {
+			"Content-Type": "application/json"
+		}
+	};
 
 	return (
 		<Container>
@@ -58,7 +65,13 @@ const Create: NextPage = () => {
 						});
 					} 
 					if (state.title && state.details) {
-						console.log(`Title: ${state.title}, Details: ${state.details}`);
+						const data = {
+							title: state.title,
+							details: state.details,
+							category: state.category,
+							createdAt: Date.now()
+						}
+						axios.post(`/api/enries`, JSON.stringify(data), config);
 					}
 				}}
 			>
